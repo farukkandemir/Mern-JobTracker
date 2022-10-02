@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #efefef;
+  font-family: "Open Sans", sans-serif;
+}
+
+label {
+  display: block;
+}
+
+input {
+  background-color: #dadada;
+  border: none;
+  outline: none;
+  padding: 3px 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 100%;
+}
+form {
+  border-radius: 10px;
+  width: 500px;
+  padding: 20px 0;
+}
+
+form div {
+  width: 100%;
+}
+
+form a {
+  color: rgb(0, 0, 255);
+}
