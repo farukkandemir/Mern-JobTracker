@@ -26,8 +26,8 @@ app.use("/api/login", loginRoute);
 
 // app.use(verifyJwt);
 
+app.use("/api/users/jobs", jobsRoutes);
 app.use("/api/users", usersRoute);
-app.use("/api/users/job", jobsRoutes);
 
 //--------Connect to DataBase-------//
 mongoose

@@ -18,10 +18,12 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
-    jobs: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Job",
-    },
+    jobs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+    ],
 
     refreshToken: {
       type: String,

@@ -20,7 +20,7 @@ const handleLogin = async (req, res) => {
   if (!pwdMatch) return res.status(401).json({msg: "Password is not correct"});
 
   const accessToken = jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "5m",
+    expiresIn: "30m",
   });
 
   const refreshToken = jwt.sign({username}, process.env.REFRESH_TOKEN_SECRET, {
