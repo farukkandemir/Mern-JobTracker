@@ -1,12 +1,13 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import moment from "moment";
 
 function Job({job}) {
   return (
     <div className="bg-gray-50 shadow-lg h-40 p-2 flex flex-col justify-between">
       <div className="flex justify-between">
         <p className="font-bold text-xl ">{job.company}</p>
-        <small>10/03/2022</small>
+        <small>{moment(job.createdAt).format("MMM Do YYYY")}</small>
       </div>
       <div className="">
         <span className="bg-gray-200 p-2 rounded-lg">{job.position}</span>

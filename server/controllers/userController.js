@@ -31,9 +31,9 @@ const createUser = async (req, res) => {
       password: hashedPwd,
     });
 
-    res.status(201).json({msg: "New User is created", newUser});
+    res.status(201).json({msg: "Your account is successfully created", newUser});
   } catch (error) {
-    res.status(400).json({errors: error});
+    res.status(500).json({error});
   }
 };
 

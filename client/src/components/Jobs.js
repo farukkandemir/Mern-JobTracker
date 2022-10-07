@@ -1,19 +1,23 @@
-import React from "react";
+import React, {useContext} from "react";
+import {Context} from "../context/Context";
 import Job from "./Job";
 
 function Jobs() {
-  const jobs = [
-    {company: "apple", position: "front-end", status: "pending"},
-    {company: "google", position: "back-end", status: "interview"},
-  ];
+  const {user, dispatch} = useContext(Context);
+
+  function handleLogOut() {
+    dispatch({type: "LOG_OUT"});
+  }
 
   return (
     <article className="">
       <div className="flex justify-end gap-5">
         <p className="text-xl">
-          Hello, <span>User</span>
+          Hello, <span>{user.username.toUpperCase()}</span>
         </p>
-        <button className="bg-purple-600 text-white px-2">LogOut</button>
+        <button className="bg-purple-600 text-white px-2" onClick={handleLogOut}>
+          LogOut
+        </button>
       </div>
 
       <div className="mt-10 w-1/2 mx-auto">
@@ -40,11 +44,17 @@ function Jobs() {
         </form>
       </div>
 
-      <article className="grid grid-cols-3 gap-2 mt-5 h-full">
-        {jobs.map((job, index) => (
-          <Job key={index} job={job} />
-        ))}
-      </article>
+      {user.jobs.length !== 0 ? (
+        <article className="grid grid-cols-3 gap-2 mt-5 h-full">
+          {user.jobs.map((job, index) => (
+            <Job key={index} job={job} />
+          ))}
+        </article>
+      ) : (
+        <article className="flex items-center justify-center h-full">
+          <h1 className="text-2xl mt-10">There is no job to display</h1>
+        </article>
+      )}
     </article>
   );
 }

@@ -10,7 +10,7 @@ const handleLogin = async (req, res) => {
 
   if (!error.isEmpty()) return res.status(400).json(error.array());
 
-  const foundUser = await User.findOne({username: username}).exec();
+  const [foundUser] = await User.find({username}).populate("jobs");
 
   if (!foundUser)
     return res.status(400).json({msg: `There is user with the username ${username}`});
@@ -31,7 +31,7 @@ const handleLogin = async (req, res) => {
   await foundUser.save();
 
   res.cookie("jwt", refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
-  res.status(200).json({msg: "Suscessfully logged in", accessToken});
+  res.status(200).json({msg: "Suscessfully logged in", accessToken, foundUser});
 };
 
 module.exports = handleLogin;

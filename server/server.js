@@ -15,7 +15,12 @@ const usersRoute = require("./routes/usersRoute");
 const jobsRoutes = require("./routes/jobsRoutes");
 
 //---------- MiddleWares ----------//
-app.use(cors());
+// app.use(credentials);
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
@@ -24,7 +29,7 @@ app.use(express.urlencoded({extended: false}));
 app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
 
-// app.use(verifyJwt);
+app.use(verifyJwt);
 
 app.use("/api/users/jobs", jobsRoutes);
 app.use("/api/users", usersRoute);

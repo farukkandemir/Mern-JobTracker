@@ -19,7 +19,7 @@ function Home() {
         </Link>
       </div>
       <div className="flex-1">
-        <img src={img} alt="image" />
+        <img src={img} alt="logo" />
       </div>
     </main>
   );
