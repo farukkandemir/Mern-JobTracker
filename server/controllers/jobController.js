@@ -10,8 +10,9 @@ const getJobs = async (req, res) => {
   // return res.json(username);
   try {
     if (username) {
-      const userJobs = await User.findOne({username}, {jobs: 1, _id: 0}).populate("jobs");
-      res.status(200).json(userJobs);
+      const result = await Job.find({username});
+
+      res.status(200).json(result);
     } else {
       res.status(400).json({msg: "Something wrong with the username"});
     }
@@ -27,21 +28,12 @@ const createJob = async (req, res) => {
 
   if (!newJob) return res.status(400).json({msg: "Please fill all fields"});
 
-  const user = await User.findOne({username: req.body.username});
-
   try {
     const result = await Job.create({
       company: newJob.company,
       position: newJob.position,
       username: newJob.username,
     });
-
-    try {
-      user.jobs.push(result);
-      await user.save();
-    } catch (error) {
-      res.status(400).son(error);
-    }
 
     res.status(200).json({msg: "Job is successfully created", result});
   } catch (error) {
@@ -77,17 +69,9 @@ const deleteJob = async (req, res) => {
   const {jobId} = req.params;
 
   try {
-    const job = await Job.findById(jobId);
-    if (job.username === req.body.username) {
-      try {
-        await job.delete();
-        res.status(200).json({msg: "Your job is successfully deleted"});
-      } catch (error) {
-        res.status(500).json(error.message);
-      }
-    } else {
-      res.status(401).json({msg: "You can only delete your job"});
-    }
+    const job = await Job.deleteOne(jobId);
+
+    res.status(200).json({msg: "Your job is successfully deleted", job});
   } catch (error) {
     res.status(500).json(error.message);
   }

@@ -19,7 +19,10 @@ function Login() {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       });
-      dispatch({type: "LOGIN_SUCCESS", payload: res.data.foundUser});
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: {user: res.data.foundUser},
+      });
       navigate("/dashboard");
     } catch (error) {
       dispatch({type: "LOGIN_FAILURE"});

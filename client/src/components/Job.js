@@ -1,8 +1,18 @@
-import React from "react";
+import React, {useContext} from "react";
+import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from "moment";
+import {Context} from "../context/Context";
 
-function Job({job}) {
+function Job({job, id}) {
+  const {dispatch} = useContext(Context);
+
+  async function handleDelete() {
+    const res = await axios.delete(`/api/users/jobs/${id}`);
+    dispatch({type: "DEL_JOB", payload: id});
+    window.location.reload();
+  }
+
   return (
     <div className="bg-gray-50 shadow-lg h-40 p-2 flex flex-col justify-between">
       <div className="flex justify-between">
@@ -17,7 +27,9 @@ function Job({job}) {
           <Link to="/edit/:id">
             <button className="text-blue-400 mr-4">Edit</button>
           </Link>
-          <button className="text-red-400">Delete</button>
+          <button className="text-red-400" onClick={handleDelete}>
+            Delete
+          </button>
         </div>
         <p className="bg-violet-200 px-2">Pending</p>
       </div>

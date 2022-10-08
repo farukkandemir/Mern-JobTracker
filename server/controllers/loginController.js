@@ -10,7 +10,7 @@ const handleLogin = async (req, res) => {
 
   if (!error.isEmpty()) return res.status(400).json(error.array());
 
-  const [foundUser] = await User.find({username}).populate("jobs");
+  const [foundUser] = await User.find({username});
 
   if (!foundUser)
     return res.status(400).json({msg: `There is user with the username ${username}`});

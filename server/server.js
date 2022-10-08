@@ -29,7 +29,7 @@ app.use(express.urlencoded({extended: false}));
 app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
 
-app.use(verifyJwt);
+// app.use(verifyJwt);
 
 app.use("/api/users/jobs", jobsRoutes);
 app.use("/api/users", usersRoute);

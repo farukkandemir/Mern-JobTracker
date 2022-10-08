@@ -4,6 +4,8 @@ const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   isFetching: false,
   error: false,
+  jobs: JSON.parse(localStorage.getItem("jobs")) || null,
+  // accessToken: null,
 };
 
 function reducer(state, {type, payload}) {
@@ -19,7 +21,7 @@ function reducer(state, {type, payload}) {
     case "LOGIN_SUCCESS":
       return {
         ...state,
-        user: payload,
+        user: payload.user,
         isFetching: false,
         error: false,
       };
@@ -38,6 +40,23 @@ function reducer(state, {type, payload}) {
         error: false,
       };
 
+    case "GET_JOBS":
+      return {
+        ...state,
+        jobs: payload,
+      };
+    case "ADD_JOB":
+      return {
+        ...state,
+        jobs: [...state.jobs, payload],
+      };
+
+    case "DEL_JOB":
+      return {
+        ...state,
+        jobs: state.jobs.filter((job) => job._id !== payload),
+      };
+
     default:
       return state;
   }
@@ -52,12 +71,17 @@ export function ContextProvider({children}) {
     localStorage.setItem("user", JSON.stringify(state.user));
   }, [state.user]);
 
+  useEffect(() => {
+    localStorage.setItem("jobs", JSON.stringify(state.jobs));
+  }, [state.jobs]);
+
   return (
     <Context.Provider
       value={{
         user: state.user,
         isFetching: state.isFetching,
         error: state.error,
+        jobs: state.jobs,
         dispatch,
       }}
     >
