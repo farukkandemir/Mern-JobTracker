@@ -47,17 +47,8 @@ const updateJob = async (req, res) => {
   const {jobId} = req.params;
 
   try {
-    const job = await Job.findById(jobId);
-    if (job.username === req.body.username) {
-      try {
-        const updatedJob = Job.findByIdAndUpdate(jobId, {$set: req.body}, {new: true});
-        res.status(200).json({msg: "Your job is successfully updated", updatedJob});
-      } catch (error) {
-        res.status(500).json(error.message);
-      }
-    } else {
-      res.status(401).json({msg: "You can only update your job"});
-    }
+    const updatedJob = await Job.findByIdAndUpdate(jobId, {$set: req.body}, {new: true});
+    res.status(200).json({msg: "Your job is successfully updated", updatedJob});
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -77,6 +68,16 @@ const deleteJob = async (req, res) => {
   }
 };
 
-const getSingleJob = (req, res) => {};
+const getSingleJob = async (req, res) => {
+  const {jobId} = req.params;
+
+  try {
+    const job = await Job.findById(jobId);
+
+    res.status(200).json(job);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
 
 module.exports = {getJobs, createJob, updateJob, deleteJob, getSingleJob};

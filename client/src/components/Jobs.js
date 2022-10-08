@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef} from "react";
 import {Context} from "../context/Context";
 import Job from "./Job";
 
@@ -30,7 +30,7 @@ function Jobs() {
 
   useEffect(() => {
     getJobs();
-  }, []);
+  });
 
   return (
     <article className="">
@@ -70,7 +70,7 @@ function Jobs() {
         </form>
       </div>
 
-      {jobs ? (
+      {jobs.length !== 0 ? (
         <article className="grid grid-cols-3 gap-2 mt-5 h-full">
           {jobs.map((job, index) => (
             <Job key={index} job={job} id={job._id} />

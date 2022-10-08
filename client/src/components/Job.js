@@ -8,9 +8,8 @@ function Job({job, id}) {
   const {dispatch} = useContext(Context);
 
   async function handleDelete() {
-    const res = await axios.delete(`/api/users/jobs/${id}`);
+    await axios.delete(`/api/users/jobs/${id}`);
     dispatch({type: "DEL_JOB", payload: id});
-    window.location.reload();
   }
 
   return (
@@ -24,7 +23,7 @@ function Job({job, id}) {
       </div>
       <div className="flex justify-between">
         <div>
-          <Link to="/edit/:id">
+          <Link to={`/edit/${id}`}>
             <button className="text-blue-400 mr-4">Edit</button>
           </Link>
           <button className="text-red-400" onClick={handleDelete}>
