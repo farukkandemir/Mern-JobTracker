@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-// import {api} from "../api/axios";
-import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {app} from "../utils/axiosConfig";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -9,17 +9,19 @@ function Register() {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
 
+  const navigate = useNavigate();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const result = await axios.post("/api/register", {
+    const result = await app.post("/api/register", {
       username,
       email,
       password,
     });
     result.data && setMsg(result.data.msg);
     setInterval(() => {
-      window.location.replace("/login");
+      navigate("/login");
     }, 2000);
   }
 

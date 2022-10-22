@@ -3,13 +3,16 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {Context} from "../context/Context";
+import {app} from "../utils/axiosConfig";
 
 function Job({job, id}) {
   const {dispatch} = useContext(Context);
 
   async function handleDelete() {
-    await axios.delete(`/api/users/jobs/${id}`);
+    const res = await app.delete(`/api/users/jobs/${id}`);
     dispatch({type: "DEL_JOB", payload: id});
+
+    console.log(res);
   }
 
   return (

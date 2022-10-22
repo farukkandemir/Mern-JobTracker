@@ -18,7 +18,7 @@ const jobsRoutes = require("./routes/jobsRoutes");
 // app.use(credentials);
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://mern-job.onrender.com",
   })
 );
 app.use(express.json());

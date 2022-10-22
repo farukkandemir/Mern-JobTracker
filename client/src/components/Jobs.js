@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, {useContext, useEffect, useRef} from "react";
 import {Context} from "../context/Context";
+import {app} from "../utils/axiosConfig";
 import Job from "./Job";
 
 function Jobs() {
@@ -15,7 +16,7 @@ function Jobs() {
 
   async function handleAdd(e) {
     e.preventDefault();
-    const result = await axios.post("http://localhost:4000/api/users/jobs", {
+    const result = await app.post("http://localhost:4000/api/users/jobs", {
       company: companyRef.current.value,
       position: positionRef.current.value,
       username: user.username,
@@ -24,7 +25,7 @@ function Jobs() {
   }
 
   async function getJobs() {
-    const res = await axios.get(`/api/users/jobs?user=${user.username}`);
+    const res = await app.get(`/api/users/jobs?user=${user.username}`);
     dispatch({type: "GET_JOBS", payload: res.data});
   }
 
